@@ -7,3 +7,6 @@
 [submodule "modules/pages"]
 	path = modules/pages
 	url = git@github.com:jakimfett/cms-modules-pages.git
+[submodule "modules/newsletter"]
+	path = modules/newsletter
+	url = git@github.com:jakimfett/cms-modules-newsletter.git
