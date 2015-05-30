@@ -4,3 +4,6 @@
 [submodule "themes/cerber"]
 	path = themes/cerber
 	url = https://github.com/sergeyklay/gleez-cerber.git
+[submodule "modules/pages"]
+	path = modules/pages
+	url = git@github.com:jakimfett/cms-modules-pages.git
