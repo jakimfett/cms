@@ -1,10 +1,11 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php
+
+defined('SYSPATH') OR die('No direct script access.');
 
 // -- Environment setup --------------------------------------------------------
-
 // Load the core core classes
-require GLZPATH.'classes/kohana'.EXT;
-require GLZPATH.'classes/gleez'.EXT;
+require GLZPATH . 'classes/kohana' . EXT;
+require GLZPATH . 'classes/gleez' . EXT;
 
 /**
  * Set the default time zone.
@@ -63,21 +64,17 @@ mb_substitute_character('none');
  * @link https://github.com/gleez/cms/wiki/Apache
  * @link https://github.com/gleez/cms/wiki/Nginx
  */
-if (isset($_SERVER['GLEEZ_ENV']))
-{
-	// Get environment variable from $_SERVER, .htaccess, apache.conf, nginx.conf, etc.
-	$env = 'Kohana::'.strtoupper($_SERVER['GLEEZ_ENV']);
-}
-elseif (get_cfg_var('GLEEZ_ENV'))
-{
-	// Get environment variable from php.ini or from ini_get('user_ini.filename')
-	$env = 'Kohana::'.strtoupper(get_cfg_var('GLEEZ_ENV'));
+if (isset($_SERVER['GLEEZ_ENV'])) {
+    // Get environment variable from $_SERVER, .htaccess, apache.conf, nginx.conf, etc.
+    $env = 'Kohana::' . strtoupper($_SERVER['GLEEZ_ENV']);
+} elseif (get_cfg_var('GLEEZ_ENV')) {
+    // Get environment variable from php.ini or from ini_get('user_ini.filename')
+    $env = 'Kohana::' . strtoupper(get_cfg_var('GLEEZ_ENV'));
 }
 
-if (isset($env))
-{
-	defined($env) AND Kohana::$environment = constant($env);
-	unset($env);
+if (isset($env)) {
+    defined($env) AND Kohana::$environment = constant($env);
+    unset($env);
 }
 
 /**
@@ -95,10 +92,10 @@ if (isset($env))
  * - boolean  autolocale  enable or disable autodetect locale                TRUE
  */
 Kohana::init(array(
-	'base_url'   => '/',
-	'index_file' => FALSE,
-	'caching'    => Kohana::$environment === Kohana::PRODUCTION,
-	'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
+    'base_url' => '/',
+    'index_file' => FALSE,
+    'caching' => Kohana::$environment === Kohana::PRODUCTION,
+    'profile' => Kohana::$environment !== Kohana::PRODUCTION,
 ));
 
 /**
@@ -112,64 +109,31 @@ Kohana::$config->attach(new Config_File);
  * Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
-	'user'        => MODPATH.'user',      // User and group Administration
-	'database'    => MODPATH.'database',  // Database access
-	'image'       => MODPATH.'image',     // Image manipulation
-	'captcha'     => MODPATH.'captcha',   // Captcha implementation
-	'minion'      => MODPATH.'minion',    // For running tasks via the CLI
-	//'unittest'    => MODPATH.'unittest',  // Unit testing
-	//'codebench'   => MODPATH.'codebench', // Benchmarking tool
-	//'mongodb'     => MODPATH.'mongodb',   // Gleez Mango Component
-	//'mango'       => MODPATH.'mango',     // Mango Reader
+    'user' => MODPATH . 'user', // User and group Administration
+    'database' => MODPATH . 'database', // Database access
+    'image' => MODPATH . 'image', // Image manipulation
+    'captcha' => MODPATH . 'captcha', // Captcha implementation
+    'minion' => MODPATH . 'minion', // For running tasks via the CLI
+    'newsletter' => MODPATH . 'newsletter', // Newsletter module
+        //'unittest'    => MODPATH.'unittest',  // Unit testing
+        //'codebench'   => MODPATH.'codebench', // Benchmarking tool
+        //'mongodb'     => MODPATH.'mongodb',   // Gleez Mango Component
 ));
 
 /**
  * Attach the file write to logging.
  * Multiple writers are supported.
  */
-if ((Kohana::$environment !== Kohana::DEVELOPMENT) AND (Kohana::$environment !== Kohana::STAGING))
-{
-	Kohana::$log->attach(new Log_File(APPPATH.'logs'), LOG_INFO);
-}
-else
-{
-	Kohana::$log->attach(new Log_File(APPPATH.'logs'));
+if ((Kohana::$environment !== Kohana::DEVELOPMENT) AND ( Kohana::$environment !== Kohana::STAGING)) {
+    Kohana::$log->attach(new Log_File(APPPATH . 'logs'), LOG_INFO);
+} else {
+    Kohana::$log->attach(new Log_File(APPPATH . 'logs'));
 }
 
 /**
  * Default path for uploads directory.
  * Path are referenced by a relative or absolute path.
  */
-Upload::$default_directory = APPPATH.'uploads';
+Upload::$default_directory = APPPATH . 'uploads';
 
-/**
- * Set the routes
- *
- * Each route must have a minimum of a name,
- * a URI and a set of defaults for the URI.
- *
- * Example:
- * ~~~
- *	Route::set('frontend/page', 'page(/<action>)')
- *		->defaults(array(
- *			'controller' => 'page',
- *			'action' => 'view',
- *	));
- * ~~~
- *
- * @uses  Path::lookup
- * @uses  Route::cache
- * @uses  Route::set
- */
-if ( ! Route::cache())
-{
-	Route::set('default', '(<controller>(/<action>(/<id>)))')
-		->filter( 'Path::lookup' )
-		->defaults(array(
-			'controller' => 'welcome',
-			'action'     => 'index',
-		));
-
-	// Cache the routes in production
-	Route::cache(Kohana::$environment === Kohana::PRODUCTION);
-}
+require_once 'routes.php';
