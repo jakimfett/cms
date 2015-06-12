@@ -37,13 +37,19 @@ if (!Route::cache()) {
                 'controller' => 'newsletter',
                 'action' => 'list'
     ));
+
+    Route::set('page-home', 'index(/<template>)')
+            ->defaults(array(
+                'controller' => 'pages',
+                'action' => 'index'
+    ));
+
     Route::set('default', '(<controller>(/<action>(/<id>)))')
             ->filter('Path::lookup')
             ->defaults(array(
                 'controller' => 'welcome',
                 'action' => 'index',
     ));
-
     // Cache the routes in production
     Route::cache(Kohana::$environment === Kohana::PRODUCTION);
 }
