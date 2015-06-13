@@ -32,7 +32,7 @@ if (!Route::cache()) {
                 'action' => 'unsubscribe'
     ));
 
-    Route::set('newsletter-list', 'newsletter/list')
+    Route::set('newsletter-list', 'newsletter/list(/<filter>)')
             ->defaults(array(
                 'controller' => 'newsletter',
                 'action' => 'list'
@@ -43,7 +43,7 @@ if (!Route::cache()) {
                 'controller' => 'pages',
                 'action' => 'index'
     ));
-
+    
     Route::set('default', '(<controller>(/<action>(/<id>)))')
             ->filter('Path::lookup')
             ->defaults(array(
