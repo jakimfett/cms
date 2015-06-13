@@ -115,6 +115,7 @@ Kohana::modules(array(
     'captcha' => MODPATH . 'captcha', // Captcha implementation
     'minion' => MODPATH . 'minion', // For running tasks via the CLI
     'newsletter' => MODPATH . 'newsletter', // Newsletter module
+    'pages' => MODPATH . 'pages', // Site pages module
         //'unittest'    => MODPATH.'unittest',  // Unit testing
         //'codebench'   => MODPATH.'codebench', // Benchmarking tool
         //'mongodb'     => MODPATH.'mongodb',   // Gleez Mango Component
