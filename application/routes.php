@@ -44,6 +44,12 @@ if (!Route::cache()) {
                 'action' => 'index'
     ));
     
+    Route::set('page-render-test', 'rendertest(/<alias>)(/<section>(/<view>))')
+            ->defaults(array(
+                'controller' => 'pages',
+                'action' => 'rendertest'
+    ));
+    
     Route::set('default', '(<controller>(/<action>(/<id>)))')
             ->filter('Path::lookup')
             ->defaults(array(
