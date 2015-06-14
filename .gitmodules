@@ -10,3 +10,6 @@
 [submodule "modules/newsletter"]
 	path = modules/newsletter
 	url = git@github.com:jakimfett/cms-modules-newsletter.git
+[submodule "cms-themes-labyrinth"]
+	path = themes/labyrinth
+	url = git@github.com:jakimfett/cms-themes-labyrinth.git
